@@ -1,11 +1,12 @@
 import React  from 'react'
 import { ImputEnter,InputType,InputText } from "../Form";
 
-const Filter = () => {
-    return (
-        <InputType>
+const Filter = ({onChange}) => {
+    return (   
+        <InputType onChange={onChange}>
             <InputText>Find contact by name</InputText>
             <ImputEnter />
-        </InputType>)
+        </InputType>
+   )
 };
 export default Filter;

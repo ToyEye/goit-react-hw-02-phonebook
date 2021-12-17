@@ -15,22 +15,22 @@ flex-direction: column;
 `
 
 const ImputEnter = styled.input`
+width: 220px;
     padding:5px 15px;
     border-radius:5px;
-    width: 220px;
     border-color:#d4d4d4;
-
+    
     &:hover,&:active {
         border-color:#7cb1ec;
     }
 `
 const InputType = styled.label`
     margin-bottom: 10px;
-`
+    `
 
 const InputText = styled.p`
     margin-bottom:5px;
-`
+    `
 class Form extends Component{
     state = {
         name: '',

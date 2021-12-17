@@ -36,6 +36,7 @@ class App extends Component {
       }));
     } else {
       alert("Контакт существует!");
+      return;
     }
   };
 
@@ -44,7 +45,6 @@ class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== itemId),
     }));
-    console.log('click');
   }
 
   filterEnter = (evt) => {

@@ -23,7 +23,7 @@ const ContactName = styled.p`
     margin-bottom: 15px;
 `
 
-const ContactList = ({ contacts, OnDeleteItem }) => (
+const ContactList = ({ contacts, onDeleteItem }) => (
     <ContactStyledList>
         {contacts.map(({ name, id, number }) =>
             <ContactItem key={id} id={id}>
@@ -32,7 +32,7 @@ const ContactList = ({ contacts, OnDeleteItem }) => (
                 </ContactName>
                 <Button
                     type="button"
-                    onClick={() => OnDeleteItem(id)}>
+                    onClick={() => onDeleteItem(id)}>
                     Delete
                 </Button>
             </ContactItem>)}

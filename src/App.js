@@ -6,6 +6,8 @@ import { Section, Title } from "./Components/Section";
 import ContactList from "./Components/ContactList";
 import { nanoid } from 'nanoid';
 import Filter from "./Components/Filter";
+import PropTypes from 'prop-types';
+
 
 
 class App extends Component {
@@ -78,6 +80,21 @@ class App extends Component {
       </Container>
     )
   }
+}
+
+App.propTypes = {
+  state: PropTypes.objectOf(PropTypes.shape({
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number:PropTypes.number
+    })),
+    filter:PropTypes.string,
+  })),
+  addContact: PropTypes.func,
+  deleteItem: PropTypes.func,
+  filterEnter: PropTypes.func,
+  filterChange:PropTypes.func
 }
 
 export default App;

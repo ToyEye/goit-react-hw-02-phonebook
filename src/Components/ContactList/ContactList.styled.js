@@ -1,6 +1,7 @@
 import React from "react";
 import styled from '@emotion/styled';
 import Button from "../Button";
+import PropTypes from 'prop-types';
 
 const ContactStyledList = styled.ul`
     width: 450px;
@@ -31,13 +32,21 @@ const ContactList = ({ contacts, onDeleteItem }) => (
                     {name} : {number}
                 </ContactName>
                 <Button
-                    type="button"
-                    onClick={() => onDeleteItem(id)}>
+                    onClick={() => onDeleteItem(id)}
+                    type="button">
                     Delete
                 </Button>
             </ContactItem>)}
     </ContactStyledList>
 );
 
+ContactList.prototype = {
+    onDeleteItem: PropTypes.func,
+    contacts: PropTypes.objectOf(PropTypes.shape({
+        name: PropTypes.string,
+        number: PropTypes.number,
+       id: PropTypes.string, 
+    }))
+}
 
 export default ContactList;

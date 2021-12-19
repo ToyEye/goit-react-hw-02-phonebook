@@ -1,1 +1,1 @@
-export { default,ImputEnter,InputType,InputText } from "./Form.styled"
+export { default } from "./Form.styled"

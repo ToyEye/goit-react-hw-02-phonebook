@@ -1,7 +1,8 @@
-import styled from '@emotion/styled';
 import React, { Component } from 'react';
+import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import Button from "../Button";
-
+import { ImputEnter, InputType, InputText } from "../FormComponents";
 
 const FormStyled = styled.form`
 display: flex;
@@ -14,24 +15,8 @@ flex-direction: column;
     border-radius:5px;
 `
 
-const ImputEnter = styled.input`
-width: 220px;
-    padding:5px 15px;
-    border-radius:5px;
-    border-color:#d4d4d4;
-    
-    &:hover,&:active {
-        border-color:#7cb1ec;
-    }
-`
-const InputType = styled.label`
-    margin-bottom: 10px;
-    `
-
-const InputText = styled.p`
-    margin-bottom:5px;
-    `
 class Form extends Component{
+
     state = {
         name: '',
         number:''
@@ -85,5 +70,13 @@ reset = () => {
     }
 }
 
-export { ImputEnter,InputType,InputText };
+Form.propTypes = {
+    state: PropTypes.objectOf(PropTypes.shape({
+        name: PropTypes.string,
+        number:PropTypes.number,
+    })),
+    handleChange: PropTypes.func,
+    handleSubmit: PropTypes.func
+}
+
 export default Form;

@@ -1,5 +1,7 @@
 import React  from 'react'
-import { ImputEnter,InputType,InputText } from "../Form";
+import { ImputEnter, InputType, InputText } from "../FormComponents";
+import PropTypes from 'prop-types';
+
 
 const Filter = ({onChange}) => {
     return (   
@@ -9,4 +11,9 @@ const Filter = ({onChange}) => {
         </InputType>
    )
 };
+
+Filter.prototype = {
+    onChange: PropTypes.func,
+}
+
 export default Filter;

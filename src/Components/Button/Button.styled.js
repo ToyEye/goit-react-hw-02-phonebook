@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const StyledButton = styled.button`
+const Button = styled.button`
     padding: 5px 15px;
     width: 110px;
     margin-right:auto;
@@ -9,17 +9,13 @@ const StyledButton = styled.button`
     border-radius:5px;
      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `
-// const TextButton = styled.span`
-// color:black;
-// `
 
 
-
-const Button = ({ children }) => {
-    return (
-        <StyledButton>
-            {children}
-        </StyledButton>
-    )
-};
+// const Button = ({onDelete, children,idItem }) => {
+//     return (
+//         <StyledButton onClick={() => onDelete(idItem)}>
+//             {children}
+//         </StyledButton>
+//     )
+// };
 export default Button

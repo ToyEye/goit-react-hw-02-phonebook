@@ -12,6 +12,9 @@ width: 220px;
 `
 const InputType = styled.label`
     margin-bottom: 10px;
+    &:hover,&:active {
+        border-color:#7cb1ec;
+    }
     `
 
 const InputText = styled.p`

@@ -7,10 +7,27 @@ import ContactList from "./Components/ContactList";
 import { nanoid } from 'nanoid';
 import Filter from "./Components/Filter";
 import PropTypes from 'prop-types';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
 class App extends Component {
+
+  static propTypes = {
+    state: PropTypes.objectOf(PropTypes.shape({
+      contacts: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        number: PropTypes.number
+      })),
+      filter: PropTypes.string,
+    })),
+    addContact: PropTypes.func,
+    deleteItem: PropTypes.func,
+    filterEnter: PropTypes.func,
+    filterChange: PropTypes.func
+  }
+  
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -37,7 +54,7 @@ class App extends Component {
         contacts: [newContact, ...contacts],
       }));
     } else {
-      alert("Контакт существует!");
+      toast.error("Контакт существует!");
       return;
     }
   };
@@ -65,6 +82,7 @@ class App extends Component {
     const { filter } = this.state;
     return (
       <Container>
+        <Toaster/>
         <Section>
           <Title>Phonebook</Title>
           <Form onSubmit={this.addContact }/>
@@ -80,21 +98,6 @@ class App extends Component {
       </Container>
     )
   }
-}
-
-App.propTypes = {
-  state: PropTypes.objectOf(PropTypes.shape({
-    contacts: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number:PropTypes.number
-    })),
-    filter:PropTypes.string,
-  })),
-  addContact: PropTypes.func,
-  deleteItem: PropTypes.func,
-  filterEnter: PropTypes.func,
-  filterChange:PropTypes.func
 }
 
 export default App;

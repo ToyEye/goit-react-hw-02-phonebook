@@ -16,6 +16,15 @@ flex-direction: column;
 `
 
 class Form extends Component{
+    
+    static propTypes = {
+        state: PropTypes.objectOf(PropTypes.shape({
+            name: PropTypes.string,
+            number: PropTypes.number,
+        })),
+        handleChange: PropTypes.func,
+        handleSubmit: PropTypes.func
+    }
 
     state = {
         name: '',
@@ -70,13 +79,6 @@ reset = () => {
     }
 }
 
-Form.propTypes = {
-    state: PropTypes.objectOf(PropTypes.shape({
-        name: PropTypes.string,
-        number:PropTypes.number,
-    })),
-    handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func
-}
+
 
 export default Form;

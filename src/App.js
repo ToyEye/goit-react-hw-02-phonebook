@@ -49,7 +49,7 @@ class App extends Component {
         name: name,
         number: number
       };
-
+      toast.success("Контакт добавлен")
      return  this.setState(({ contacts }) => ({
         contacts: [newContact, ...contacts],
       }));
@@ -82,7 +82,12 @@ class App extends Component {
     const { filter } = this.state;
     return (
       <Container>
-        <Toaster/>
+        <Toaster
+          toastOptions={{
+            error: {
+              duration: 2000,
+            }
+          }} />
         <Section>
           <Title>Phonebook</Title>
           <Form onSubmit={this.addContact }/>

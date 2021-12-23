@@ -1,33 +1,14 @@
 import './App.css';
-import React, {Component} from 'react';
-import {Container} from "./Components/Container";
-import Form from "./Components/Form";
-import { Section, Title } from "./Components/Section";
-import ContactList from "./Components/ContactList";
+import React, { Component } from 'react';
+import { Container } from './Components/Container';
+import Form from './Components/Form';
+import { Section, Title } from './Components/Section';
+import ContactList from './Components/ContactList';
 import { nanoid } from 'nanoid';
-import Filter from "./Components/Filter";
-import PropTypes from 'prop-types';
+import Filter from './Components/Filter';
 import toast, { Toaster } from 'react-hot-toast';
 
-
-
 class App extends Component {
-
-  static propTypes = {
-    state: PropTypes.objectOf(PropTypes.shape({
-      contacts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        number: PropTypes.number
-      })),
-      filter: PropTypes.string,
-    })),
-    addContact: PropTypes.func,
-    deleteItem: PropTypes.func,
-    filterEnter: PropTypes.func,
-    filterChange: PropTypes.func
-  }
-  
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -36,47 +17,44 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-  }
-
+  };
 
   addContact = ({ name, number }) => {
-    let array = [];
-    array = this.state.contacts.map(contact=>contact.name)
-
+    let array = this.state.contacts.map(contact => contact.name);
     if (!array.includes(name)) {
-     const newContact = {
+      const newContact = {
         id: nanoid(),
         name: name,
-        number: number
+        number: number,
       };
-      toast.success("Контакт добавлен")
-     return  this.setState(({ contacts }) => ({
+      toast.success('Контакт добавлен');
+      return this.setState(({ contacts }) => ({
         contacts: [newContact, ...contacts],
       }));
     } else {
-      toast.error("Контакт существует!");
+      toast.error('Контакт существует!');
       return;
     }
   };
-
 
   deleteItem = itemId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== itemId),
     }));
-  }
+  };
 
-  filterEnter = (evt) => {
+  filterEnter = evt => {
     this.setState({ filter: evt.target.value });
-  }
+  };
 
   filterChange = () => {
-   const { contacts, filter } = this.state;
+    const { contacts, filter } = this.state;
     const normalizeFilter = filter.toLocaleLowerCase();
 
-    return contacts.filter(contact => contact.name.toLocaleLowerCase()
-      .includes(normalizeFilter));
-  }
+    return contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(normalizeFilter)
+    );
+  };
 
   render() {
     const { filter } = this.state;
@@ -86,22 +64,23 @@ class App extends Component {
           toastOptions={{
             error: {
               duration: 2000,
-            }
-          }} />
+            },
+          }}
+        />
         <Section>
           <Title>Phonebook</Title>
-          <Form onSubmit={this.addContact }/>
+          <Form onSubmit={this.addContact} />
         </Section>
         <Section>
           <Title>Contacts</Title>
-          <Filter value={filter} onChange={this.filterEnter}/>
+          <Filter value={filter} onChange={this.filterEnter} />
           <ContactList
             contacts={this.filterChange()}
-            onDeleteItem={this.deleteItem} 
+            onDeleteItem={this.deleteItem}
           />
         </Section>
       </Container>
-    )
+    );
   }
 }
 

@@ -1,14 +1,21 @@
-import './App.css';
-import React, { Component } from 'react';
+import { Component, ChangeEvent } from 'react';
+import { nanoid } from 'nanoid';
+import toast, { Toaster } from 'react-hot-toast';
+
 import { Container } from './Components/Container';
 import Form from './Components/Form';
 import { Section, Title } from './Components/Section';
 import ContactList from './Components/ContactList';
-import { nanoid } from 'nanoid';
 import Filter from './Components/Filter';
-import toast, { Toaster } from 'react-hot-toast';
 
-class App extends Component {
+import { TContact } from './Components/App.types';
+
+type TAppState = {
+  contacts: TContact[];
+  filter: string;
+};
+
+class App extends Component<{}, TAppState> {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -19,31 +26,35 @@ class App extends Component {
     filter: '',
   };
 
-  addContact = ({ name, number }) => {
-    let array = this.state.contacts.map(contact => contact.name);
-    if (!array.includes(name)) {
-      const newContact = {
-        id: nanoid(),
-        name: name,
-        number: number,
-      };
-      toast.success('Контакт добавлен');
-      return this.setState(({ contacts }) => ({
-        contacts: [newContact, ...contacts],
-      }));
-    } else {
+  addContact = ({ name, number }: TContact) => {
+    const { contacts } = this.state;
+
+    const isExist = contacts.filter(contact => contact.name === name);
+
+    if (isExist) {
       toast.error('Контакт существует!');
       return;
     }
-  };
 
-  deleteItem = itemId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== itemId),
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    toast.success('Контакт добавлен');
+    this.setState(({ contacts }) => ({
+      contacts: [newContact, ...contacts],
     }));
   };
 
-  filterEnter = evt => {
+  deleteItem = (itemId: string | undefined) => {
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(({ id }) => id !== itemId),
+    }));
+  };
+
+  filterEnter = (evt: ChangeEvent<HTMLInputElement>) => {
     this.setState({ filter: evt.target.value });
   };
 

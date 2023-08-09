@@ -1,36 +1,34 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
-import PropTepes from 'prop-types';
+import React, { Component, FormEvent, ChangeEvent } from 'react';
+
 import Button from '../Button';
-import { ImputEnter, InputType, InputText } from '../FormComponents';
+import {
+  ImputEnter,
+  InputType,
+  InputText,
+  FormStyled,
+} from '../FormComponents/FormComponents.styled';
 
-const FormStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  width: 450px;
-  padding: 10px 15px;
-  border: 1px solid black;
-  border-radius: 5px;
-`;
+type TContact = {
+  name: string;
+  number: string;
+};
 
-class Form extends Component {
-  static propTepes = {
-    onSubmit: PropTepes.func.isRequired,
-  };
+type Props = {
+  onSubmit: (arg: TContact) => void;
+};
 
+class Form extends Component<Props> {
   state = {
     name: '',
     number: '',
   };
 
-  handleChange = evt => {
+  handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     this.setState({ [name]: value });
   };
 
-  handleSubmit = evt => {
+  handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     this.props.onSubmit(this.state);
@@ -44,7 +42,6 @@ class Form extends Component {
     return (
       <FormStyled onSubmit={this.handleSubmit}>
         <InputType>
-          {' '}
           <InputText>Name</InputText>
           <ImputEnter
             type="text"
@@ -58,7 +55,6 @@ class Form extends Component {
           />
         </InputType>
         <InputType>
-          {' '}
           <InputText>Name</InputText>
           <ImputEnter
             type="tel"
